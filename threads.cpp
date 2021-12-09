@@ -19,9 +19,9 @@ int main(int argc, char **argv) {
 
   int localsize = N/NTH;
   for (int i = 0; i < NTH; i++) {
-    int th_min_global_idx = ????; // minimum global index for thread i
-    int th_max_global_idx = ????; // maximum global index for thread i. What happens if N%NTH != 0 ?
-
+    int th_min_global_idx = i*localsize; // minimum global index for thread i
+    int th_max_global_idx = (i+1)*localsize; // maximum global index for thread i. What happens if N%NTH != 0 ?
+    if (i+1 ==NTH && N%NTH !=0) th_max_global_idx = N+1;
 
     ths.push_back(std::thread(suma, data, th_min_global_idx, th_max_global_idx, std::ref(res[i])));
   }
